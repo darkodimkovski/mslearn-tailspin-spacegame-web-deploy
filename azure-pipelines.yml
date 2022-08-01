@@ -3,7 +3,6 @@ trigger:
 
 variables:
   buildConfiguration: 'Release'
-  environment: 'dev'
 
 stages:
   - stage: 'Build'
