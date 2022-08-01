@@ -65,16 +65,40 @@ stages:
       - publish: '$(Build.ArtifactStagingDirectory)'
         artifact: drop
 
-  - stage: 'Deploy'
-    displayName: 'Deploy the web application'
+  - stage: 'Dev'
+    displayName: 'Deploy the web application to dev environment'
     dependsOn: Build
     jobs:
       - deployment: Deploy
         pool:
           vmImage: 'ubuntu-20.04'
-        environment: prod
+        environment: '$(environment)'
         variables:
-        - group: 'Release'
+        - group: 'Dev Environment'
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+              - download: current
+                artifact: drop
+              - task: AzureWebApp@1
+                displayName: 'Azure App Service Deploy: website'
+                inputs:
+                  appType: webAppLinux
+                  azureSubscription: 'Resource Manager - Tailspin - Space Game'
+                  appName: '$(WebAppName)'
+                  package: '$(Pipeline.Workspace)/drop/$(buildConfiguration)/*.zip'
+                  
+  - stage: 'Prod'
+    displayName: 'Deploy the web application to prod environment'
+    dependsOn: Dev
+    jobs:
+      - deployment: Deploy
+        pool:
+          vmImage: 'ubuntu-20.04'
+        environment: '$(environment)'
+        variables:
+        - group: 'Prod Environment'
         strategy:
           runOnce:
             deploy:
