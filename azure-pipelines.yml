@@ -108,7 +108,8 @@ stages:
               - task: AzureWebApp@1
                 displayName: 'Azure App Service Deploy: website'
                 inputs:
-                  appType: webAppLinux
-                  azureSubscription: 'Resource Manager - Tailspin - Space Game'
-                  appName: '$(WebAppName)'
+                  azureSubscription: 'Visual Studio Enterprise Subscription – MPN (1ec69190-43a6-454c-a2c6-0ef8d619dc19)'
+                  appType: 'webAppLinux'
+                  appName: 'spaceapptestapp'
                   package: '$(Pipeline.Workspace)/drop/$(buildConfiguration)/*.zip'
+                  runtimeStack: 'DOTNETCORE|5.0'
