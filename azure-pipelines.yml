@@ -85,9 +85,9 @@ stages:
                 inputs:
                   azureSubscription: 'Visual Studio Enterprise Subscription – MPN (1ec69190-43a6-454c-a2c6-0ef8d619dc19)'
                   appType: 'webAppLinux'
-                  appName: 'spaceapptestapp'
+                  appName: 'spaceappddi'
                   package: '$(Pipeline.Workspace)/drop/$(buildConfiguration)/*.zip'
-                  runtimeStack: 'DOTNETCORE|5.0'
+                  runtimeStack: 'DOTNETCORE|6.0'
                   
   - stage: 'Prod'
     displayName: 'Deploy the web application to prod environment'
@@ -110,6 +110,6 @@ stages:
                 inputs:
                   azureSubscription: 'Visual Studio Enterprise Subscription – MPN (1ec69190-43a6-454c-a2c6-0ef8d619dc19)'
                   appType: 'webAppLinux'
-                  appName: 'spaceapptestapp'
+                  appName: 'spaceappddi'
                   package: '$(Pipeline.Workspace)/drop/$(buildConfiguration)/*.zip'
-                  runtimeStack: 'DOTNETCORE|5.0'
+                  runtimeStack: 'DOTNETCORE|6.0'
